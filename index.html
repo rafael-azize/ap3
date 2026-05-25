@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caderno AP3 — Direito</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --ink:#1a1410;
+  --ink2:#3d3530;
+  --ink3:#6b5f58;
+  --ink4:#a8998f;
+  --paper:#faf8f5;
+  --paper2:#f2ede8;
+  --paper3:#e8e0d8;
+  --rule:#d6cdc4;
+  --amber:#b5651d;
+  --amber2:#d4874b;
+  --amber3:#f0e4d4;
+  --red:#9b2335;
+  --green:#2d6a4f;
+  --blue:#1a4a7a;
+  --shadow:rgba(26,20,16,0.06);
+}
+
+@media(prefers-color-scheme:dark){
+  :root{
+    --ink:#f0ebe4;
+    --ink2:#d4cdc5;
+    --ink3:#a89990;
+    --ink4:#6b5f58;
+    --paper:#1a1612;
+    --paper2:#221e1a;
+    --paper3:#2d2820;
+    --rule:#3d3530;
+    --amber:#d4874b;
+    --amber2:#b5651d;
+    --amber3:#2d2010;
+    --red:#e05a6a;
+    --green:#5aad8a;
+    --blue:#5a9fd4;
+    --shadow:rgba(0,0,0,0.3);
+  }
+}
+
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'DM Sans',sans-serif;
+  font-size:15px;
+  line-height:1.7;
+  min-height:100vh;
+}
+
+body::before{
+  content:'';
+  position:fixed;inset:0;z-index:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events:none;opacity:0.6;
+}
+
+.layout{
+  display:grid;
+  grid-template-columns:220px 1fr;
+  min-height:100vh;
+  position:relative;z-index:1;
+}
+
+/* SIDEBAR */
+aside{
+  background:var(--paper2);
+  border-right:1px solid var(--rule);
+  padding:2rem 0;
+  position:sticky;top:0;height:100vh;
+  overflow-y:auto;
+  display:flex;flex-direction:column;
+}
+.aside-brand{padding:0 1.5rem 1.5rem;border-bottom:1px solid var(--rule);margin-bottom:1.5rem;}
+.brand-label{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink4);font-weight:500;margin-bottom:0.4rem;}
+.brand-title{font-family:'Lora',serif;font-size:1.3rem;font-weight:700;color:var(--ink);line-height:1.2;}
+.brand-title em{color:var(--amber);font-style:normal}
+.nav-section{padding:0 1rem 0.5rem;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink4);font-weight:500;margin-bottom:0.25rem;}
+.nav-item{display:flex;align-items:center;gap:0.6rem;padding:0.55rem 1.5rem;font-size:13.5px;font-weight:400;color:var(--ink3);cursor:pointer;border-left:2px solid transparent;transition:all 0.18s;text-decoration:none;}
+.nav-item:hover{color:var(--ink);background:var(--paper3)}
+.nav-item.active{color:var(--amber);border-left-color:var(--amber);background:var(--amber3);font-weight:500;}
+.nav-item .nav-icon{font-size:15px;opacity:0.7}
+.materia-list{padding:0 1rem;margin-bottom:1.5rem}
+.materia-pill{display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0.75rem;border-radius:6px;font-size:12.5px;color:var(--ink3);cursor:pointer;transition:all 0.18s;margin-bottom:0.25rem;}
+.materia-pill:hover{background:var(--paper3);color:var(--ink)}
+.materia-pill.current{background:var(--amber3);color:var(--amber)}
+.materia-pill.locked{opacity:0.45;cursor:not-allowed}
+.m-dot{width:7px;height:7px;border-radius:50%;background:var(--rule);flex-shrink:0;}
+.materia-pill.current .m-dot{background:var(--amber)}
+.aside-footer{margin-top:auto;padding:1.5rem 1.5rem 0;border-top:1px solid var(--rule);font-size:11.5px;color:var(--ink4);line-height:1.6;}
+
+/* MAIN */
+main{display:flex;flex-direction:column;min-height:100vh;}
+
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:1px solid var(--rule);padding:0 2.5rem;height:54px;display:flex;align-items:center;justify-content:space-between;gap:1rem;}
+.topbar-left{display:flex;align-items:center;gap:1rem}
+.topbar-crumb{font-size:12px;color:var(--ink4);display:flex;align-items:center;gap:0.4rem;}
+.crumb-sep{opacity:0.4}
+.tab-strip{display:flex;gap:0.15rem}
+.tab{padding:0.35rem 0.9rem;font-size:12.5px;font-weight:500;color:var(--ink4);background:none;border:none;border-radius:5px;cursor:pointer;transition:all 0.15s;font-family:'DM Sans',sans-serif;}
+.tab:hover{color:var(--ink2);background:var(--paper2)}
+.tab.active{color:var(--amber);background:var(--amber3)}
+.mobile-menu-btn{display:none;background:none;border:none;color:var(--ink3);font-size:20px;cursor:pointer;padding:4px;}
+
+/* CONTENT */
+.content{flex:1;padding:2.5rem 2.5rem 4rem;max-width:900px;}
+
+/* PANELS */
+.panel{display:none}
+.panel.active{display:block}
+
+/* HEADING */
+.chapter-title{font-family:'Lora',serif;font-size:2rem;font-weight:700;color:var(--ink);line-height:1.2;margin-bottom:0.4rem;}
+.chapter-sub{font-size:14px;color:var(--ink4);margin-bottom:2rem;display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;}
+.chip{display:inline-flex;align-items:center;gap:0.3rem;font-size:11px;font-weight:500;letter-spacing:0.06em;background:var(--paper2);border:1px solid var(--rule);border-radius:99px;padding:0.15rem 0.7rem;color:var(--ink3);}
+
+/* RESUMO TABS */
+.rtab-strip{display:flex;gap:0.25rem;margin-bottom:2rem;flex-wrap:wrap;border-bottom:1px solid var(--rule);padding-bottom:0.75rem;}
+.rtab{padding:0.4rem 1rem;font-size:13px;font-weight:500;color:var(--ink4);background:none;border:none;border-radius:6px;cursor:pointer;transition:all 0.15s;font-family:'DM Sans',sans-serif;}
+.rtab:hover{color:var(--ink2);background:var(--paper2)}
+.rtab.active{color:var(--amber);background:var(--amber3);font-weight:600;}
+.rsection{display:none}
+.rsection.active{display:block}
+
+/* SECTION LABEL */
+.sec-label{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;font-weight:500;color:var(--amber);margin-bottom:0.75rem;margin-top:2.5rem;display:flex;align-items:center;gap:0.5rem;}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--amber3)}
+.sec-label:first-child{margin-top:0}
+
+/* MNEMONIC */
+.mnem-banner{background:var(--amber3);border-left:3px solid var(--amber);border-radius:0 8px 8px 0;padding:1.25rem 1.5rem;margin-bottom:1.75rem;}
+.mnem-banner .mnem-word{font-family:'Lora',serif;font-size:2.2rem;font-weight:700;color:var(--amber);letter-spacing:0.12em;margin-bottom:0.5rem;}
+.mnem-letters{display:flex;flex-wrap:wrap;gap:0.5rem}
+.mnem-l{font-size:13px;color:var(--ink2);}
+.mnem-l strong{color:var(--amber);font-weight:600}
+
+/* CARDS */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-bottom:1.75rem;}
+.card{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:1.25rem;transition:border-color 0.2s,box-shadow 0.2s;}
+.card:hover{border-color:var(--amber2);box-shadow:0 2px 16px var(--shadow);}
+.card.full{grid-column:1/-1}
+.card-icon{font-size:1.25rem;margin-bottom:0.6rem;width:36px;height:36px;background:var(--paper2);border-radius:8px;display:flex;align-items:center;justify-content:center;}
+.card-title{font-family:'Lora',serif;font-size:1rem;font-weight:600;color:var(--ink);margin-bottom:0.5rem;}
+.card p,.card li{font-size:13.5px;color:var(--ink3);line-height:1.65}
+.card ul{padding-left:1.1rem}
+.card li{margin-bottom:0.2rem}
+.hl{font-family:'DM Mono',monospace;font-size:12px;background:var(--amber3);color:var(--amber);border-radius:4px;padding:0.1rem 0.4rem;}
+
+/* TABLE */
+.table-wrap{overflow-x:auto;margin-bottom:1.75rem;border-radius:8px;border:1px solid var(--rule)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead th{background:var(--paper2);color:var(--ink2);font-weight:500;text-align:left;padding:0.7rem 1rem;border-bottom:1px solid var(--rule);font-size:12px;letter-spacing:0.02em;white-space:nowrap;}
+td{padding:0.65rem 1rem;color:var(--ink3);border-bottom:1px solid var(--paper2)}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--paper2);color:var(--ink2)}
+.td-ok{color:var(--green);font-weight:500}
+.td-no{color:var(--red);font-weight:500}
+
+/* ALERTS */
+.alert{display:flex;gap:0.75rem;padding:0.9rem 1.1rem;border-radius:8px;margin-bottom:0.75rem;font-size:13.5px;line-height:1.6;}
+.alert-ic{flex-shrink:0;margin-top:2px;font-size:15px}
+.alert.warn{background:#fff0f0;border:1px solid #e8b4b4;color:#7a2020}
+.alert.tip{background:#eaf6ef;border:1px solid #b4dbc4;color:#1e5c3a}
+.alert.info{background:#eaf1f8;border:1px solid #b4cee8;color:#1a3d5c}
+@media(prefers-color-scheme:dark){
+  .alert.warn{background:#2d1018;border-color:#5a2020;color:#e8a0a0}
+  .alert.tip{background:#0e2a1a;border-color:#2a5a38;color:#88d4a8}
+  .alert.info{background:#0e1e2d;border-color:#1e3a5a;color:#88b8e8}
+}
+.alert strong{font-weight:600;color:inherit}
+
+/* PROSE */
+.prose{font-size:14px;color:var(--ink3);line-height:1.8;margin-bottom:1rem;}
+.prose strong{color:var(--ink2);font-weight:600;}
+.prose em{color:var(--amber);font-style:normal;font-weight:500;}
+
+/* DEFINITION BLOCK */
+.def-block{border-left:3px solid var(--rule);padding:0.75rem 1.25rem;margin-bottom:1rem;background:var(--paper2);border-radius:0 8px 8px 0;}
+.def-term{font-family:'Lora',serif;font-size:0.9rem;font-weight:700;color:var(--ink);margin-bottom:0.25rem;}
+.def-body{font-size:13.5px;color:var(--ink3);line-height:1.7;}
+
+/* NUMBERED LIST */
+.num-list{counter-reset:nl;padding:0;list-style:none;margin-bottom:1.5rem;}
+.num-list li{counter-increment:nl;display:flex;gap:0.75rem;padding:0.6rem 0;border-bottom:1px solid var(--rule);font-size:13.5px;color:var(--ink3);line-height:1.6;}
+.num-list li:last-child{border-bottom:none}
+.num-list li::before{content:counter(nl);font-family:'DM Mono',monospace;font-size:11px;font-weight:500;color:var(--amber);background:var(--amber3);border-radius:4px;padding:0.15rem 0.5rem;flex-shrink:0;height:fit-content;margin-top:2px;}
+
+/* HIGHLIGHT ROW */
+.hl-row{display:flex;gap:1rem;align-items:flex-start;padding:0.85rem 1rem;background:var(--paper2);border-radius:8px;margin-bottom:0.5rem;font-size:13.5px;color:var(--ink3);}
+.hl-row strong{color:var(--ink);font-weight:600;min-width:140px;flex-shrink:0;}
+
+/* COLLAPSE */
+.collapse{border:1px solid var(--rule);border-radius:8px;margin-bottom:0.5rem;overflow:hidden;}
+.collapse-head{display:flex;align-items:center;justify-content:space-between;padding:0.85rem 1.1rem;cursor:pointer;background:var(--paper);transition:background 0.15s;font-size:14px;font-weight:500;color:var(--ink2);}
+.collapse-head:hover{background:var(--paper2)}
+.collapse-head .c-icon{font-size:12px;color:var(--ink4);transition:transform 0.2s;flex-shrink:0;}
+.collapse-head.open .c-icon{transform:rotate(180deg)}
+.collapse-body{display:none;padding:1rem 1.1rem 1.1rem;font-size:13.5px;color:var(--ink3);line-height:1.7;border-top:1px solid var(--rule);}
+.collapse-body.open{display:block}
+
+hr{border:none;border-top:1px solid var(--rule);margin:2rem 0}
+
+/* ===== QUESTÕES ===== */
+.score-strip{display:flex;align-items:center;gap:1.5rem;padding:1.1rem 1.5rem;background:var(--paper2);border:1px solid var(--rule);border-radius:10px;margin-bottom:1.75rem;flex-wrap:wrap;}
+.score-num{font-family:'Lora',serif;font-size:2rem;font-weight:700;color:var(--amber);}
+.score-meta{font-size:13px;color:var(--ink4)}
+.score-bar-wrap{flex:1;min-width:100px}
+.score-bar{height:5px;background:var(--rule);border-radius:99px;overflow:hidden}
+.score-fill{height:100%;background:var(--amber);border-radius:99px;transition:width 0.8s}
+.btn-ghost{font-family:'DM Sans',sans-serif;font-size:12.5px;font-weight:500;padding:0.45rem 1.1rem;border:1px solid var(--rule);border-radius:6px;background:none;color:var(--ink3);cursor:pointer;transition:all 0.15s;}
+.btn-ghost:hover{border-color:var(--amber2);color:var(--amber);background:var(--amber3)}
+.q-block{border:1px solid var(--rule);border-radius:10px;margin-bottom:1.25rem;overflow:hidden;transition:border-color 0.2s;}
+.q-block.done{border-color:var(--amber2)}
+.q-top{padding:1.1rem 1.25rem 0;}
+.q-meta-row{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.75rem;}
+.q-num-badge{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;background:var(--amber3);color:var(--amber);border-radius:5px;padding:0.15rem 0.55rem;}
+.q-fonte{font-size:11.5px;color:var(--ink4)}
+.q-tema{font-size:11.5px;color:var(--blue);font-weight:500}
+.q-text{font-size:14.5px;color:var(--ink2);line-height:1.7;padding-bottom:1rem;}
+.q-options{border-top:1px solid var(--rule);display:flex;flex-direction:column;}
+.q-opt{display:flex;align-items:flex-start;gap:0.75rem;padding:0.8rem 1.25rem;border-bottom:1px solid var(--rule);cursor:pointer;transition:background 0.15s;font-size:13.5px;color:var(--ink3);}
+.q-opt:last-child{border-bottom:none}
+.q-opt:hover:not(.locked){background:var(--paper2)}
+.q-opt.correct{background:#eaf6ef!important;color:#1e5c3a}
+.q-opt.wrong{background:#fff0f0!important;color:#7a2020}
+.q-opt.locked{cursor:default}
+.q-letter{width:22px;height:22px;border-radius:4px;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;background:var(--paper2);color:var(--ink4);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.q-opt.correct .q-letter{background:#c6e8d4;color:#1e5c3a}
+.q-opt.wrong .q-letter{background:#f0c8c8;color:#7a2020}
+@media(prefers-color-scheme:dark){
+  .q-opt.correct{background:#0e2a1a!important;color:#88d4a8}
+  .q-opt.wrong{background:#2d1018!important;color:#e8a0a0}
+  .q-opt.correct .q-letter{background:#1a4028;color:#88d4a8}
+  .q-opt.wrong .q-letter{background:#3d1818;color:#e8a0a0}
+}
+.q-feedback{display:none;padding:1rem 1.25rem;border-top:1px solid var(--rule);font-size:13px;line-height:1.65;color:var(--ink3);}
+.q-feedback.show{display:block}
+.q-feedback strong{color:var(--ink2)}
+
+/* ===== FLASHCARDS ===== */
+.fc-wrapper{perspective:1000px;max-width:520px;margin:0 auto 1.5rem;}
+.fc-card{width:100%;aspect-ratio:5/3;position:relative;cursor:pointer;transform-style:preserve-3d;transition:transform 0.5s cubic-bezier(0.4,0,0.2,1);}
+.fc-card.flipped{transform:rotateY(180deg)}
+.fc-face{position:absolute;inset:0;border-radius:12px;border:1px solid var(--rule);padding:2rem;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;backface-visibility:hidden;}
+.fc-front{background:var(--paper)}
+.fc-back{background:var(--amber3);border-color:var(--amber2);transform:rotateY(180deg);}
+.fc-label{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink4);margin-bottom:0.75rem;}
+.fc-q{font-family:'Lora',serif;font-size:1.05rem;font-weight:600;color:var(--ink);line-height:1.4;}
+.fc-a{font-size:0.95rem;color:var(--ink2);line-height:1.5}
+.fc-hint{font-size:11.5px;color:var(--ink4);margin-top:1rem}
+.fc-nav{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:2rem;}
+.fc-btn{font-family:'DM Sans',sans-serif;font-size:13px;background:none;border:1px solid var(--rule);border-radius:6px;padding:0.4rem 1rem;color:var(--ink3);cursor:pointer;transition:all 0.15s;}
+.fc-btn:hover{border-color:var(--amber2);color:var(--amber);background:var(--amber3)}
+.fc-ctr{font-size:12px;color:var(--ink4);min-width:50px;text-align:center}
+
+/* VIDEOS */
+.video-list{display:flex;flex-direction:column;gap:0.75rem}
+.video-row{display:flex;gap:1rem;align-items:flex-start;padding:1rem;background:var(--paper);border:1px solid var(--rule);border-radius:10px;cursor:pointer;transition:border-color 0.2s,box-shadow 0.2s;}
+.video-row:hover{border-color:var(--amber2);box-shadow:0 2px 12px var(--shadow)}
+.v-thumb{position:relative;width:140px;flex-shrink:0;border-radius:7px;overflow:hidden;aspect-ratio:16/9;background:var(--paper2);}
+.v-thumb-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;background:var(--paper3);}
+.v-thumb-icon{width:32px;height:32px;border-radius:50%;background:rgba(180,100,30,0.15);color:var(--amber);font-size:12px;display:flex;align-items:center;justify-content:center;}
+.v-thumb-label{font-size:10px;font-weight:500;color:var(--ink4);text-align:center;padding:0 4px}
+.v-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.3);opacity:0;transition:opacity 0.2s;}
+.video-row:hover .v-play{opacity:1}
+.v-play span{width:36px;height:36px;border-radius:50%;background:rgba(220,50,50,0.9);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;}
+.v-info{flex:1;min-width:0}
+.v-channel{font-size:11px;color:var(--ink4);font-weight:500;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem}
+.v-title{font-size:14px;font-weight:500;color:var(--ink2);line-height:1.4;margin-bottom:0.35rem}
+.v-meta{font-size:11.5px;color:var(--ink4);display:flex;gap:0.75rem}
+.v-tag{display:inline-block;font-size:11px;font-weight:500;background:var(--paper2);border:1px solid var(--rule);border-radius:4px;padding:0.1rem 0.45rem;color:var(--ink3);}
+
+/* MODAL */
+.modal-bg{display:none;position:fixed;inset:0;z-index:999;background:rgba(10,8,5,0.7);align-items:center;justify-content:center;padding:1.5rem;}
+.modal-bg.open{display:flex}
+.modal-box{background:var(--paper);border:1px solid var(--rule);border-radius:12px;width:100%;max-width:780px;overflow:hidden;}
+.modal-head{display:flex;align-items:center;justify-content:space-between;padding:0.9rem 1.25rem;border-bottom:1px solid var(--rule);}
+.modal-head-title{font-size:14px;font-weight:500;color:var(--ink2)}
+.modal-close{background:none;border:none;color:var(--ink4);font-size:20px;cursor:pointer;transition:color 0.15s;line-height:1;}
+.modal-close:hover{color:var(--red)}
+.modal-iframe{width:100%;aspect-ratio:16/9;border:none;display:block}
+
+/* MOBILE */
+@media(max-width:720px){
+  .layout{grid-template-columns:1fr}
+  aside{position:fixed;inset:0;z-index:200;transform:translateX(-100%);transition:transform 0.3s;width:260px;height:100%;}
+  aside.open{transform:translateX(0)}
+  .aside-overlay{display:none;position:fixed;inset:0;z-index:199;background:rgba(10,8,5,0.5);}
+  .aside-overlay.open{display:block}
+  .mobile-menu-btn{display:block}
+  .content{padding:1.5rem 1.25rem 3rem}
+  .topbar{padding:0 1.25rem}
+  .tab-strip .tab{padding:0.35rem 0.6rem;font-size:12px}
+  .v-thumb{width:100px}
+  .chapter-title{font-size:1.5rem}
+  .hl-row strong{min-width:100px}
+}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.panel.active{animation:fadeIn 0.3s ease}
+</style>
+</head>
+<body>
+
+<div class="aside-overlay" id="asideOverlay" onclick="toggleMenu()"></div>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside id="aside">
+  <div class="aside-brand">
+    <div class="brand-label">Caderno de Estudos</div>
+    <div class="brand-title">AP3 <em>Direito</em></div>
+  </div>
+  <div class="nav-section">Seções</div>
+  <a class="nav-item active" onclick="switchTab('resumo');setActive(this)">
+    <span class="nav-icon">📖</span> Resumo
+  </a>
+  <a class="nav-item" onclick="switchTab('videos');setActive(this)">
+    <span class="nav-icon">▶</span> Vídeo Aulas
+  </a>
+  <a class="nav-item" onclick="switchTab('questoes');setActive(this)">
+    <span class="nav-icon">✏</span> Questões
+  </a>
+  <a class="nav-item" onclick="switchTab('flashcards');setActive(this)">
+    <span class="nav-icon">🃏</span> Flashcards
+  </a>
+  <br>
+  <div class="nav-section">Matérias</div>
+  <div class="materia-list">
+    <div class="materia-pill current"><div class="m-dot"></div>Direito Administrativo</div>
+    <div class="materia-pill locked"><div class="m-dot"></div>Direito Constitucional</div>
+    <div class="materia-pill locked"><div class="m-dot"></div>Direito Civil</div>
+    <div class="materia-pill locked"><div class="m-dot"></div>Direito Penal</div>
+  </div>
+  <div class="aside-footer">Envie os PDFs das outras matérias para eu adicionar aqui.</div>
+</aside>
+
+<!-- MAIN -->
+<main>
+  <div class="topbar">
+    <div class="topbar-left">
+      <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+      <div class="topbar-crumb">
+        <span>AP3</span><span class="crumb-sep">/</span>
+        <span id="crumbMateria">Dir. Administrativo</span><span class="crumb-sep">/</span>
+        <span id="crumbTab" style="color:var(--amber)">Resumo</span>
+      </div>
+    </div>
+    <div class="tab-strip">
+      <button class="tab active" id="tbResumo" onclick="switchTab('resumo')">Resumo</button>
+      <button class="tab" id="tbVideos" onclick="switchTab('videos')">Vídeos</button>
+      <button class="tab" id="tbQuestoes" onclick="switchTab('questoes')">Questões</button>
+      <button class="tab" id="tbFlashcards" onclick="switchTab('flashcards')">Flashcards</button>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ===== RESUMO ===== -->
+    <div class="panel active" id="panel-resumo">
+      <div class="chapter-title">Direito Administrativo</div>
+      <div class="chapter-sub">
+        <span class="chip">📌 Aulas 04, 05 e 06</span>
+        <span class="chip">🏛 Poderes · Organização · Adm. Indireta</span>
+        <span class="chip">📚 Conteúdo completo</span>
+      </div>
+
+      <!-- RESUMO SUB-TABS -->
+      <div class="rtab-strip">
+        <button class="rtab active" id="rt0" onclick="switchR(0)">⚡ Revisão Rápida</button>
+        <button class="rtab" id="rt1" onclick="switchR(1)">🔑 Princípios</button>
+        <button class="rtab" id="rt2" onclick="switchR(2)">⚖ Poderes Adm.</button>
+        <button class="rtab" id="rt3" onclick="switchR(3)">🏗 Organização</button>
+        <button class="rtab" id="rt4" onclick="switchR(4)">🏢 Adm. Indireta</button>
+        <button class="rtab" id="rt5" onclick="switchR(5)">📡 Agências</button>
+      </div>
+
+      <!-- ===== SEÇÃO 0: REVISÃO RÁPIDA ===== -->
+      <div class="rsection active" id="rs0">
+        <div class="mnem-banner">
+          <div style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--amber2);margin-bottom:0.4rem">Mnemônico — Art. 37 CF</div>
+          <div class="mnem-word">L I M P E</div>
+          <div class="mnem-letters">
+            <span class="mnem-l"><strong>L</strong>egalidade</span><span style="color:var(--ink4)">·</span>
+            <span class="mnem-l"><strong>I</strong>mpessoalidade</span><span style="color:var(--ink4)">·</span>
+            <span class="mnem-l"><strong>M</strong>oralidade</span><span style="color:var(--ink4)">·</span>
+            <span class="mnem-l"><strong>P</strong>ublicidade</span><span style="color:var(--ink4)">·</span>
+            <span class="mnem-l"><strong>E</strong>ficiência</span>
+          </div>
+        </div>
+        <div class="sec-label">Pegadinhas clássicas de prova</div>
+        <div class="alert warn"><span class="alert-ic">⚠</span><div><strong>Existe hierarquia entre Adm. Direta e Indireta?</strong> NÃO. Apenas tutela/supervisão ministerial.</div></div>
+        <div class="alert warn"><span class="alert-ic">⚠</span><div><strong>EP tem capital misto?</strong> NÃO. Empresa Pública = capital 100% público.</div></div>
+        <div class="alert warn"><span class="alert-ic">⚠</span><div><strong>SEM pode ter qualquer forma societária?</strong> NÃO. SEM = obrigatoriamente S/A.</div></div>
+        <div class="alert warn"><span class="alert-ic">⚠</span><div><strong>OAB é autarquia comum?</strong> NÃO. Natureza jurídica especial (STF ADI 3026).</div></div>
+        <div class="alert warn"><span class="alert-ic">⚠</span><div><strong>Poder discricionário = liberdade absoluta?</strong> NÃO. Sujeito ao controle judicial de legalidade, razoabilidade e proporcionalidade.</div></div>
+        <div class="alert warn"><span class="alert-ic">⚠</span><div><strong>Particulares podem exercer poder de polícia coercitivo?</strong> NÃO. Atos de coerção são indelegáveis (STJ/STF).</div></div>
+        <div class="sec-label">Resumão dos entidades da Adm. Indireta</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Entidade</th><th>Direito</th><th>Capital</th><th>Criação</th><th>Exemplo</th></tr></thead>
+            <tbody>
+              <tr><td>Autarquia</td><td class="td-ok">Público</td><td>100% público</td><td>Diretamente por lei</td><td>INSS, IBAMA</td></tr>
+              <tr><td>Fund. Pública dir. público</td><td class="td-ok">Público</td><td>100% público</td><td>Diretamente por lei</td><td>IBGE, FUNAI</td></tr>
+              <tr><td>Fund. Pública dir. privado</td><td class="td-no">Privado</td><td>100% público</td><td>Lei autoriza + registro</td><td>—</td></tr>
+              <tr><td>Empresa Pública</td><td class="td-no">Privado</td><td>100% público</td><td>Lei autoriza + registro</td><td>Correios, CEF</td></tr>
+              <tr><td>Soc. Econ. Mista</td><td class="td-no">Privado</td><td>Misto (maioria pública)</td><td>Lei autoriza + registro</td><td>Petrobras, BB</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="sec-label">Os 6 Poderes — resumo instantâneo</div>
+        <div class="hl-row"><strong>Vinculado</strong><span>Sem margem de escolha — lei determina exatamente o comportamento.</span></div>
+        <div class="hl-row"><strong>Discricionário</strong><span>Margem de conveniência/oportunidade dentro dos limites legais.</span></div>
+        <div class="hl-row"><strong>Hierárquico</strong><span>Organiza funções internamente; permite delegar, avocar, fiscalizar.</span></div>
+        <div class="hl-row"><strong>Disciplinar</strong><span>Aplica sanções a servidores e particulares vinculados.</span></div>
+        <div class="hl-row"><strong>Regulamentar</strong><span>Edita decretos para execução da lei (Art. 84, IV, CF). Não inova.</span></div>
+        <div class="hl-row"><strong>Polícia</strong><span>Restringe direitos individuais em benefício coletivo. Atributos: DAC.</span></div>
+      </div>
+
+      <!-- ===== SEÇÃO 1: PRINCÍPIOS ===== -->
+      <div class="rsection" id="rs1">
+        <div class="sec-label">Princípios Expressos — Art. 37 CF/88</div>
+        <div class="alert info"><span class="alert-ic">💡</span><div>Decorar o LIMPE não basta — a prova cobra o <strong>conteúdo de cada princípio</strong>. Estude cada um abaixo.</div></div>
+
+        <div class="def-block">
+          <div class="def-term">Legalidade</div>
+          <div class="def-body">
+            Para o particular: pode fazer tudo que a lei <strong>não proíbe</strong>.<br>
+            Para o administrador público: só pode fazer o que a lei <strong>expressamente autoriza</strong>.<br>
+            <br>
+            Essa distinção é a essência do princípio. O administrador não tem vontade própria — sua vontade é a lei. Qualquer ato sem previsão legal é nulo. Fundamenta o controle de legalidade pelo Judiciário.
+          </div>
+        </div>
+
+        <div class="def-block">
+          <div class="def-term">Impessoalidade</div>
+          <div class="def-body">
+            Duas dimensões:<br>
+            <strong>(1) Finalidade pública:</strong> O administrador deve agir para atingir a finalidade da lei — nunca para beneficiar ou prejudicar alguém por razões pessoais. Ato que busca outra finalidade = desvio de poder (vício de finalidade).<br>
+            <strong>(2) Imputação ao Estado:</strong> Os atos dos agentes públicos são imputados ao Estado, não à pessoa do agente. É por isso que a publicidade dos atos e obras não pode conter nome, símbolo ou imagem que os associem a um governante (proibição de promoção pessoal — art. 37, §1º, CF).
+          </div>
+        </div>
+
+        <div class="def-block">
+          <div class="def-term">Moralidade</div>
+          <div class="def-body">
+            O administrador deve agir com <strong>boa-fé, honestidade e lealdade</strong> à Administração e à coletividade. Não basta ser legal — o ato também precisa ser ético e moral.<br>
+            <br>
+            A violação da moralidade administrativa pode configurar improbidade administrativa (Lei 8.429/1992). A imoralidade é causa autônoma de anulação do ato administrativo — mesmo que o ato seja formalmente legal, pode ser anulado por imoralidade. Controle pode ser feito por ação popular (art. 5º, LXXIII, CF).
+          </div>
+        </div>
+
+        <div class="def-block">
+          <div class="def-term">Publicidade</div>
+          <div class="def-body">
+            Regra: todos os atos administrativos devem ser publicados/divulgados. Sem publicidade o ato não produz efeitos perante terceiros (não começa a correr prazo de recurso, por exemplo).<br>
+            <br>
+            <strong>Exceções (sigilo admitido pela CF):</strong><br>
+            • Segurança nacional e do Estado<br>
+            • Imprescindibilidade para a segurança da sociedade<br>
+            • Garantia do contraditório na investigação criminal (sigilo de inquérito)<br>
+            <br>
+            Não confundir publicidade com publicação no Diário Oficial — publicidade é o gênero (pode ser notificação, afixação etc.).
+          </div>
+        </div>
+
+        <div class="def-block">
+          <div class="def-term">Eficiência</div>
+          <div class="def-body">
+            Inserido pela EC 19/1998 (Reforma Administrativa). Exige que o administrador atue com <strong>qualidade, rapidez, economicidade e rendimento</strong>, produzindo resultados satisfatórios para a sociedade.<br>
+            <br>
+            Não basta apenas agir — é preciso atingir bons resultados. Relaciona-se com avaliação periódica de desempenho dos servidores. Servidor estável pode perder o cargo por insuficiência de desempenho (art. 41, §1º, III, CF).
+          </div>
+        </div>
+
+        <hr>
+        <div class="sec-label">Princípios Implícitos (não previstos no art. 37, mas cobrados em prova)</div>
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-title">Razoabilidade / Proporcionalidade</div>
+            <p>Os meios usados pelo administrador devem ser proporcionais aos fins. Excesso de sanção, por exemplo, pode ser anulado judicialmente por violação à proporcionalidade.</p>
+          </div>
+          <div class="card">
+            <div class="card-title">Supremacia do Interesse Público</div>
+            <p>O interesse público prevalece sobre o interesse privado. Fundamenta as prerrogativas da Adm. como a autoexecutoriedade e a desapropriação.</p>
+          </div>
+          <div class="card">
+            <div class="card-title">Indisponibilidade do Interesse Público</div>
+            <p>O administrador não pode dispor (renunciar, transigir livremente) do interesse público — este pertence à coletividade, não ao agente. Justifica a licitação obrigatória.</p>
+          </div>
+          <div class="card">
+            <div class="card-title">Autotutela</div>
+            <p>A Adm. pode anular seus próprios atos ilegais e revogar os inconvenientes, sem precisar recorrer ao Judiciário. <span class="hl">Súmulas 346 e 473 STF</span></p>
+          </div>
+          <div class="card">
+            <div class="card-title">Continuidade do Serviço Público</div>
+            <p>Os serviços públicos essenciais não podem ser interrompidos. Servidor não pode exercer greve sem restrições; concessionária não pode parar serviço sem aviso prévio.</p>
+          </div>
+          <div class="card">
+            <div class="card-title">Motivação</div>
+            <p>Os atos administrativos devem ser motivados — especialmente os que restringem direitos. Motivação per relationem: aceita desde que o documento de referência seja acessível.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== SEÇÃO 2: PODERES ===== -->
+      <div class="rsection" id="rs2">
+        <div class="alert info"><span class="alert-ic">💡</span><div>Os poderes são <strong>instrumentos</strong> da Administração para atingir o interesse público. Nenhum é absoluto — todos encontram limites legais e constitucionais.</div></div>
+
+        <div class="sec-label">Poder Vinculado</div>
+        <div class="prose">
+          Quando a lei prevê <strong>exatamente</strong> todos os elementos do ato (competência, forma, conteúdo, motivo e finalidade), sem margem de escolha para o administrador. Se todos os requisitos estiverem preenchidos, a autoridade é <em>obrigada</em> a praticar o ato — não pode negar.
+        </div>
+        <div class="card full" style="margin-bottom:1.5rem">
+          <p><strong>Elementos do ato vinculado:</strong> sujeito competente + forma legal + conteúdo previsto em lei + motivo determinado em lei + finalidade pública específica. Qualquer divergência = ilegalidade = ato nulo.</p>
+          <br><p><strong>Exemplos:</strong> concessão de aposentadoria quando preenchidos os requisitos legais; licença para construir quando o projeto atende ao plano diretor; aposentadoria compulsória aos 75 anos (EC 88/2015).</p>
+        </div>
+
+        <div class="sec-label">Poder Discricionário</div>
+        <div class="prose">
+          A lei deixa ao administrador margem de <em>conveniência e oportunidade</em> para escolher o <strong>mérito</strong> do ato: <em>quando</em> agir, <em>como</em> agir, <em>quanto</em> aplicar. O Judiciário <strong>não pode substituir</strong> o mérito administrativo, mas pode controlar os limites legais, razoabilidade e proporcionalidade.
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Aspecto</th><th>Vinculado</th><th>Discricionário</th></tr></thead>
+            <tbody>
+              <tr><td>Margem de escolha</td><td class="td-no">Nenhuma</td><td class="td-ok">Conveniência e oportunidade</td></tr>
+              <tr><td>Controle judicial</td><td>Sim (legalidade)</td><td>Sim (legalidade, razoab., prop.)</td></tr>
+              <tr><td>Mérito administrativo</td><td>Não existe</td><td>Existe — não substituível pelo Judiciário</td></tr>
+              <tr><td>Exemplo</td><td>Licença-maternidade</td><td>Autorização para porte de arma</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="alert warn"><span class="alert-ic">⚠</span><div><strong>Atenção:</strong> Discricionariedade ≠ arbitrariedade. O ato arbitrário é ilegal e pode ser anulado judicialmente.</div></div>
+
+        <div class="sec-label">Poder Hierárquico</div>
+        <div class="prose">
+          Poder de <strong>organizar, distribuir e escalonar</strong> funções dentro da estrutura interna da Administração Pública. Gera uma relação de <em>subordinação</em> (superior × subordinado).
+        </div>
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-title">Delegação</div>
+            <p>Superior transfere competência a subordinado. O delegante continua responsável pelos atos delegados. Pode ser revogada a qualquer tempo.</p>
+            <br><p style="font-size:12px;color:var(--red)">⚠ Não se delega competência exclusiva de lei, edição de atos normativos, decisão de recursos administrativos de atos do próprio delegado.</p>
+          </div>
+          <div class="card">
+            <div class="card-title">Avocação</div>
+            <p>Superior puxa para si competência atribuída ao subordinado. Só é admitida em caráter excepcional e por razões relevantes e temporariamente.</p>
+            <br><p style="font-size:12px;color:var(--red)">⚠ Não cabe avocação de competência exclusiva do subordinado por lei.</p>
+          </div>
+        </div>
+        <div class="alert warn"><span class="alert-ic">⚠</span><div><strong>Importante:</strong> Poder hierárquico existe apenas na <strong>Administração Direta</strong>. Entre Adm. Direta e Indireta não há hierarquia — há apenas <em>tutela/supervisão ministerial</em>.</div></div>
+
+        <div class="sec-label">Poder Disciplinar</div>
+        <div class="prose">
+          Poder de <strong>apurar infrações e aplicar penalidades</strong> a servidores públicos e a particulares que possuam vínculo especial com a Administração (contratados, concessionários, permissionários).
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Penalidades típicas (Estatuto Servidores — Lei 8.112/90)</th><th>Natureza</th></tr></thead>
+            <tbody>
+              <tr><td>Advertência</td><td>Escrita; penas mais leves</td></tr>
+              <tr><td>Suspensão</td><td>Até 90 dias</td></tr>
+              <tr><td>Demissão</td><td>Infrações graves (improbidade, abandono, etc.)</td></tr>
+              <tr><td>Cassação de aposentadoria/disponibilidade</td><td>Para ex-servidores</td></tr>
+              <tr><td>Destituição de cargo em comissão</td><td>Ocupante de cargo comissionado</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="alert info"><span class="alert-ic">💡</span><div>O poder disciplinar tem caráter <em>discricionário</em> para graduar a pena (dentro dos limites legais), mas a instauração do processo é vinculada quando há indícios da infração.</div></div>
+
+        <div class="sec-label">Poder Regulamentar</div>
+        <div class="prose">
+          Poder do <strong>Chefe do Poder Executivo</strong> de editar atos normativos (decretos, regulamentos) para <em>fiel execução das leis</em> — art. 84, IV, CF.<br><br>
+          <strong>Limite fundamental:</strong> não pode inovar na ordem jurídica, criar direitos ou obrigações não previstos em lei. É um poder <em>secundário</em> — existe em função da lei, nunca a substitui.
+        </div>
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-title">Decreto Regulamentador (art. 84, IV)</div>
+            <p>Regulamenta a lei existente. Infralegal — está abaixo da lei na hierarquia normativa. Pode ser sustado pelo Congresso se exorbitar.</p>
+          </div>
+          <div class="card">
+            <div class="card-title">Decreto Autônomo (art. 84, VI)</div>
+            <p>Raro. CF autoriza decreto autônomo apenas para: organização e funcionamento da Adm. Federal (quando não implique aumento de despesa ou criação/extinção de órgão) e extinção de cargos vagos.</p>
+          </div>
+        </div>
+
+        <div class="sec-label">Poder de Polícia</div>
+        <div class="prose">
+          Poder de <strong>restringir, condicionar e limitar</strong> o exercício de direitos e liberdades individuais em favor do interesse coletivo. Fundamento: supremacia do interesse público.
+        </div>
+
+        <div class="mnem-banner" style="margin-bottom:1rem">
+          <div style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--amber2);margin-bottom:0.4rem">Atributos — Mnemônico</div>
+          <div class="mnem-word">D A C</div>
+          <div class="mnem-letters">
+            <span class="mnem-l"><strong>D</strong>iscricionariedade</span><span style="color:var(--ink4)">·</span>
+            <span class="mnem-l"><strong>A</strong>utoexecutoriedade</span><span style="color:var(--ink4)">·</span>
+            <span class="mnem-l"><strong>C</strong>oercibilidade</span>
+          </div>
+        </div>
+
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-title">Discricionariedade</div>
+            <p>Em regra, a Adm. tem margem de escolha sobre <em>se</em> e <em>como</em> exercer o poder de polícia (oportunidade e conveniência). Quando a lei determina atuação obrigatória, o ato é vinculado.</p>
+          </div>
+          <div class="card">
+            <div class="card-title">Autoexecutoriedade</div>
+            <p>A Adm. pode executar seus atos de polícia <em>sem precisar ir ao Judiciário</em>. Ex: apreensão de mercadorias impróprias para consumo, demolição de construção irregular com risco.</p>
+            <br><p style="font-size:12px;color:var(--red)">⚠ Não se aplica à cobrança de multa (precisa de execução fiscal).</p>
+          </div>
+          <div class="card">
+            <div class="card-title">Coercibilidade</div>
+            <p>O ato de polícia é imposto ao particular — não depende de sua concordância. Pode ser executado com uso de força, se necessário e proporcional.</p>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Ciclo do Poder de Polícia</th><th>Descrição</th><th>Delegação a particular?</th></tr></thead>
+            <tbody>
+              <tr><td>Ordem de polícia</td><td>Norma que proíbe/condiciona</td><td class="td-ok">Sim (em tese)</td></tr>
+              <tr><td>Consentimento de polícia</td><td>Licença, autorização</td><td class="td-ok">Sim (em tese)</td></tr>
+              <tr><td>Fiscalização de polícia</td><td>Verificação do cumprimento</td><td class="td-ok">Sim (em tese)</td></tr>
+              <tr><td>Sanção de polícia</td><td>Multa, interdição, apreensão</td><td class="td-no">NÃO — ato de coerção</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="alert warn"><span class="alert-ic">⚠</span><div><strong>STJ/STF:</strong> Particulares (ex: empresas concessionárias) <strong>não podem aplicar sanções de polícia</strong>. Podem fiscalizar e cobrar (pedágio), mas não autuar e sancionar com poder coercitivo estatal.</div></div>
+      </div>
+
+      <!-- ===== SEÇÃO 3: ORGANIZAÇÃO ===== -->
+      <div class="rsection" id="rs3">
+        <div class="sec-label">Centralização × Descentralização × Desconcentração</div>
+
+        <div class="def-block">
+          <div class="def-term">Centralização</div>
+          <div class="def-body">O Estado executa as tarefas diretamente pelos órgãos da Administração Direta (Ministérios, Secretarias). Não há repasse a outra pessoa jurídica. Ex: atividade típica de Estado exercida diretamente pela União.</div>
+        </div>
+
+        <div class="def-block">
+          <div class="def-term">Descentralização</div>
+          <div class="def-body">
+            Transferência da execução de atividade a <strong>outra pessoa jurídica</strong>. Pode ser:<br>
+            <strong>• Por outorga (legal):</strong> transfere a titularidade do serviço + sua execução → Administração Indireta (lei é necessária).<br>
+            <strong>• Por delegação (contratual/negocial):</strong> transfere apenas a execução → concessionários, permissionários. A titularidade permanece com o Estado.
+          </div>
+        </div>
+
+        <div class="def-block">
+          <div class="def-term">Desconcentração</div>
+          <div class="def-body">
+            Distribuição interna de competências dentro da <strong>mesma pessoa jurídica</strong>. Cria órgãos, mas não cria nova personalidade jurídica. Mantém-se a hierarquia.<br>
+            Ex: criação de um Ministério, de uma Secretaria, de uma Delegacia Regional.
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Critério</th><th>Descentralização</th><th>Desconcentração</th></tr></thead>
+            <tbody>
+              <tr><td>Nova pessoa jurídica</td><td class="td-ok">✔ Sim</td><td class="td-no">✘ Não</td></tr>
+              <tr><td>Hierarquia</td><td class="td-no">✘ Não (tutela)</td><td class="td-ok">✔ Sim</td></tr>
+              <tr><td>Onde ocorre</td><td>Adm. Indireta / Delegação</td><td>Dentro da mesma entidade</td></tr>
+              <tr><td>Exemplo</td><td>INSS, ANVISA, Correios</td><td>Ministérios, Secretarias, Delegacias</td></tr>
+              <tr><td>Exige lei?</td><td>Sim (outorga) / Contrato (delegação)</td><td>Sim (para criação de órgãos)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="sec-label">Órgãos Públicos</div>
+        <div class="prose">
+          Órgão público é um <strong>conjunto de atribuições e competências</strong> sem personalidade jurídica própria. É parte integrante da pessoa jurídica (União, Estado, Município) que o criou. Os agentes que compõem o órgão manifestam a vontade da pessoa jurídica — pelo princípio da <em>imputação volitiva</em> (teoria do órgão).
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Classificação dos órgãos</th><th>Critério</th><th>Exemplos</th></tr></thead>
+            <tbody>
+              <tr><td>Independentes</td><td>Topo da organização; sem hierarquia superior</td><td>Presidência da República, Congresso, STF</td></tr>
+              <tr><td>Autônomos</td><td>Alta autonomia; subordinados aos independentes</td><td>Ministérios, AGU, TCU</td></tr>
+              <tr><td>Superiores</td><td>Poder de decisão; sem autonomia financeira</td><td>Secretarias, Departamentos</td></tr>
+              <tr><td>Subalternos</td><td>Funções executórias; subordinados a todos os acima</td><td>Seções, Divisões, Repartições</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="sec-label">Tutela / Supervisão Ministerial</div>
+        <div class="prose">
+          A relação entre a Administração Direta e a Indireta <strong>não é de hierarquia</strong>, mas de <em>tutela</em> (também chamada supervisão ministerial ou controle finalistico). O Ministério ao qual a entidade está vinculada exerce controle sobre:<br><br>
+          • Cumprimento dos objetivos definidos na lei<br>
+          • Harmonização de atuação com a política setorial do governo<br>
+          • Controle de eficiência e resultados<br><br>
+          <strong>O que a tutela NÃO permite:</strong> dar ordens diretas aos servidores da entidade, avocar competências, modificar atos da entidade sem autorização legal.
+        </div>
+      </div>
+
+      <!-- ===== SEÇÃO 4: ADM. INDIRETA ===== -->
+      <div class="rsection" id="rs4">
+        <div class="sec-label">Autarquias</div>
+        <div class="prose">
+          Pessoas jurídicas de direito <em>público</em>, criadas por lei específica, para exercer atividade <strong>típica do Estado</strong> com maior especialização e autonomia administrativa e financeira.
+        </div>
+        <ul class="num-list">
+          <li><strong>Criação:</strong> Somente por lei específica — o próprio texto legal cria a autarquia (não basta autorização legislativa).</li>
+          <li><strong>Bens:</strong> São bens públicos — impenhoráveis, imprescritíveis, inalienáveis (em regra).</li>
+          <li><strong>Pessoal:</strong> Servidores estatutários (obrigatoriamente submetidos ao regime estatutário).</li>
+          <li><strong>Licitação:</strong> Obrigatória para contratos.</li>
+          <li><strong>Responsabilidade civil:</strong> Objetiva (art. 37, §6º, CF) — responde independente de culpa; Estado responde subsidiariamente.</li>
+          <li><strong>Privilégios processuais:</strong> Prazo em quádruplo para contestar, prazo em dobro para recorrer, pagamento via precatório.</li>
+          <li><strong>Controle:</strong> Sujeitas ao controle do TCU e ao controle finalistico do Ministério supervisor.</li>
+          <li><strong>Imunidade tributária:</strong> Sim, quando vinculadas a suas finalidades essenciais (art. 150, §2º, CF).</li>
+        </ul>
+
+        <div class="sec-label">Fundações Públicas</div>
+        <div class="alert info"><span class="alert-ic">💡</span><div>A fundação pública é a entidade mais confusa da Adm. Indireta — existem dois tipos com regimes completamente diferentes.</div></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Critério</th><th>Fund. Pública Direito Público</th><th>Fund. Pública Direito Privado</th></tr></thead>
+            <tbody>
+              <tr><td>Também chamada</td><td>Autarquia fundacional</td><td>Fundação governamental</td></tr>
+              <tr><td>Criação</td><td>Diretamente por lei</td><td>Lei autoriza + registro em cartório</td></tr>
+              <tr><td>Regime de pessoal</td><td>Estatutário</td><td>CLT (em regra)</td></tr>
+              <tr><td>Bens</td><td>Públicos</td><td>Privados</td></tr>
+              <tr><td>Privilégios processuais</td><td class="td-ok">Sim</td><td class="td-no">Não</td></tr>
+              <tr><td>Imunidade tributária</td><td class="td-ok">Sim</td><td>Parcial (ver finalidade)</td></tr>
+              <tr><td>Exemplos</td><td>IBGE, FUNAI</td><td>Fundação Oswaldo Cruz (FIOCRUZ)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="sec-label">Empresas Públicas × Sociedades de Economia Mista</div>
+        <div class="alert warn"><span class="alert-ic">⚠</span><div>Esta tabela é <strong>obrigatória</strong>. As diferenças entre EP e SEM são as mais cobradas da Adm. Indireta.</div></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Critério</th><th>Empresa Pública (EP)</th><th>Soc. Economia Mista (SEM)</th></tr></thead>
+            <tbody>
+              <tr><td>Direito</td><td>Privado</td><td>Privado</td></tr>
+              <tr><td>Capital</td><td class="td-ok">100% público</td><td>Misto (maioria pública votante)</td></tr>
+              <tr><td>Forma societária</td><td>Qualquer (LTDA, SA, etc.)</td><td class="td-no">Somente S/A</td></tr>
+              <tr><td>Criação</td><td>Lei autoriza + registro</td><td>Lei autoriza + registro</td></tr>
+              <tr><td>Competência judicial (federal)</td><td>Justiça Federal (art. 109, I, CF)</td><td>Justiça Estadual (comum)</td></tr>
+              <tr><td>Regime de pessoal</td><td>CLT + concurso público</td><td>CLT + concurso público</td></tr>
+              <tr><td>Falência</td><td>Não se submete</td><td>Não se submete</td></tr>
+              <tr><td>Licitação</td><td>Lei 13.303/2016 (Estatuto)</td><td>Lei 13.303/2016 (Estatuto)</td></tr>
+              <tr><td>Exemplos</td><td>Correios, CEF, BNDES, Embrapa</td><td>Petrobras, Banco do Brasil, BB</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="sec-label">Regime Jurídico Híbrido das Estatais</div>
+        <div class="prose">
+          Embora sejam pessoas jurídicas de direito <strong>privado</strong>, as EPs e SEMs sofrem derrogações do direito público:
+        </div>
+        <ul class="num-list">
+          <li><strong>Concurso público obrigatório</strong> para admissão de pessoal (art. 37, II, CF).</li>
+          <li><strong>Licitação obrigatória</strong> (Lei 13.303/2016 — Estatuto das Estatais).</li>
+          <li><strong>Controle do TCU</strong> (quando exploram atividade econômica com recursos públicos).</li>
+          <li><strong>Acumulação de cargos proibida</strong> (art. 37, XVII, CF).</li>
+          <li><strong>Responsabilidade civil objetiva</strong> (art. 37, §6º, CF) quando prestam serviço público.</li>
+          <li><strong>Proibição de falência</strong> — bens essenciais ao serviço público não podem ser penhorados.</li>
+        </ul>
+
+        <div class="sec-label">Prestadoras de Serviço Público vs. Exploradoras de Atividade Econômica</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Critério</th><th>Prestadora de Serv. Público</th><th>Exploradora de Ativ. Econômica</th></tr></thead>
+            <tbody>
+              <tr><td>Base constitucional</td><td>Art. 175 CF</td><td>Art. 173 CF</td></tr>
+              <tr><td>Responsabilidade civil</td><td>Objetiva (art. 37, §6º)</td><td>Subjetiva (regra do direito privado)</td></tr>
+              <tr><td>Imunidade tributária</td><td>Pode ter</td><td>Não tem (concorrência leal)</td></tr>
+              <tr><td>Bens</td><td>Podem ter regime público</td><td>Regime privado</td></tr>
+              <tr><td>Exemplo</td><td>Correios, CEF</td><td>Petrobras, Banco do Brasil</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ===== SEÇÃO 5: AGÊNCIAS ===== -->
+      <div class="rsection" id="rs5">
+        <div class="sec-label">Agências Reguladoras — Conceito e Natureza</div>
+        <div class="prose">
+          São <strong>autarquias em regime especial</strong> criadas para regular setores econômicos sensíveis, especialmente após as privatizações dos anos 1990. Possuem maior autonomia em relação ao Ministério supervisor do que as autarquias comuns.
+        </div>
+
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-title">Características do Regime Especial</div>
+            <ul>
+              <li>Dirigentes com <strong>mandato fixo</strong> — não podem ser exonerados ad nutum</li>
+              <li>Independência técnica e decisória</li>
+              <li>Capacidade normativa (poder regulatório)</li>
+              <li>Autonomia financeira reforçada</li>
+              <li>Quarentena para ex-dirigentes (impedimento de atuar no setor regulado por período determinado)</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title">Poder Normativo das Agências</div>
+            <p>As agências editam resoluções, portarias e normas técnicas que vinculam as empresas do setor regulado. Debate doutrinário: é constitucional delegar poder normativo a agências? STF entende que sim, desde que dentro dos parâmetros estabelecidos em lei (doutrina da deslegalização/delegificação).</p>
+          </div>
+        </div>
+
+        <div class="sec-label">Principais Agências Reguladoras Federais</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Sigla</th><th>Nome</th><th>Setor</th><th>Lei</th></tr></thead>
+            <tbody>
+              <tr><td><span class="hl">ANEEL</span></td><td>Ag. Nac. de Energia Elétrica</td><td>Energia elétrica</td><td>Lei 9.427/96</td></tr>
+              <tr><td><span class="hl">ANATEL</span></td><td>Ag. Nac. de Telecom.</td><td>Telecomunicações</td><td>Lei 9.472/97</td></tr>
+              <tr><td><span class="hl">ANP</span></td><td>Ag. Nac. do Petróleo</td><td>Petróleo e gás</td><td>Lei 9.478/97</td></tr>
+              <tr><td><span class="hl">ANVISA</span></td><td>Ag. Nac. de Vigilância Sanitária</td><td>Saúde/alimentos/medicamentos</td><td>Lei 9.782/99</td></tr>
+              <tr><td><span class="hl">ANS</span></td><td>Ag. Nac. de Saúde Suplementar</td><td>Planos de saúde privados</td><td>Lei 9.961/00</td></tr>
+              <tr><td><span class="hl">ANA</span></td><td>Ag. Nac. de Águas</td><td>Recursos hídricos</td><td>Lei 9.984/00</td></tr>
+              <tr><td><span class="hl">ANAC</span></td><td>Ag. Nac. de Aviação Civil</td><td>Aviação civil</td><td>Lei 11.182/05</td></tr>
+              <tr><td><span class="hl">ANTAQ</span></td><td>Ag. Nac. de Transp. Aquaviários</td><td>Portos e navegação</td><td>Lei 10.233/01</td></tr>
+              <tr><td><span class="hl">ANTT</span></td><td>Ag. Nac. de Transportes Terrestres</td><td>Rodovias/ferrovias/cargas</td><td>Lei 10.233/01</td></tr>
+              <tr><td><span class="hl">ANCINE</span></td><td>Ag. Nac. do Cinema</td><td>Setor cinematográfico</td><td>MP 2.228-1/01</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="sec-label">Agências Executivas</div>
+        <div class="prose">
+          Não confundir com agências reguladoras! Agências executivas são <strong>autarquias ou fundações</strong> que firmaram contrato de desempenho com o Ministério supervisor, comprometendo-se a atingir metas em troca de maior autonomia gerencial. São qualificadas por decreto do Presidente da República.
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Aspecto</th><th>Ag. Reguladora</th><th>Ag. Executiva</th></tr></thead>
+            <tbody>
+              <tr><td>Natureza</td><td>Autarquia em regime especial</td><td>Autarquia ou fundação qualificada</td></tr>
+              <tr><td>Criação da qualificação</td><td>Lei específica</td><td>Decreto presidencial</td></tr>
+              <tr><td>Finalidade</td><td>Regular setor econômico</td><td>Maior eficiência gerencial</td></tr>
+              <tr><td>Contrato de desempenho</td><td>Não é requisito</td><td class="td-ok">Sim, obrigatório</td></tr>
+              <tr><td>Exemplo</td><td>ANVISA, ANATEL</td><td>INMETRO, ADA</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="sec-label">Consórcios Públicos (para completar)</div>
+        <div class="prose">
+          Forma de cooperação federativa entre entes públicos (União, Estados, Municípios) para realização de objetivos comuns. Regidos pela Lei 11.107/2005.
+        </div>
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-title">Associação Pública (CGOP)</div>
+            <p>Criada com personalidade jurídica de <strong>direito público</strong>. Integra a Administração Indireta de todos os entes consorciados. Seus bens são públicos.</p>
+          </div>
+          <div class="card">
+            <div class="card-title">Associação Privada</div>
+            <p>Criada com personalidade jurídica de <strong>direito privado</strong>. Segue o regime das entidades privadas sem fins lucrativos, mas com capital público.</p>
+          </div>
+        </div>
+
+        <hr>
+        <div class="sec-label">Revisão Final — Não Esqueça</div>
+        <div class="alert tip"><span class="alert-ic">✅</span><div><strong>LIMPE:</strong> Legalidade · Impessoalidade · Moralidade · Publicidade · Eficiência — art. 37 CF. Eficiência foi inserido pela EC 19/98.</div></div>
+        <div class="alert tip"><span class="alert-ic">✅</span><div><strong>DAC:</strong> Discricionariedade · Autoexecutoriedade · Coercibilidade — atributos do poder de polícia. Sanção de polícia não é delegável a particular.</div></div>
+        <div class="alert tip"><span class="alert-ic">✅</span><div><strong>EP:</strong> capital 100% público · qualquer forma societária · Justiça Federal. <strong>SEM:</strong> capital misto · S/A obrigatória · Justiça Comum.</div></div>
+        <div class="alert tip"><span class="alert-ic">✅</span><div><strong>Descentralização ≠ Desconcentração:</strong> Descentralização cria nova pessoa jurídica (sem hierarquia). Desconcentração é interna (com hierarquia).</div></div>
+        <div class="alert tip"><span class="alert-ic">✅</span><div><strong>Agências Reguladoras:</strong> autarquias em regime especial com mandato fixo para dirigentes. Agências Executivas: autarquias/fundações com contrato de desempenho.</div></div>
+        <div class="alert tip"><span class="alert-ic">✅</span><div><strong>Autarquia:</strong> criada diretamente por lei · direito público · bens públicos · privilégios processuais · responsabilidade civil objetiva.</div></div>
+      </div>
+
+    </div><!-- /panel-resumo -->
+
+    <!-- ===== VÍDEOS ===== -->
+    <div class="panel" id="panel-videos">
+      <div class="chapter-title">Vídeo Aulas</div>
+      <div class="chapter-sub">
+        <span class="chip">📺 Direito Administrativo</span>
+        <span class="chip">9 vídeos selecionados</span>
+      </div>
+      <div class="alert info"><span class="alert-ic">💡</span><div>Vídeos de canais especializados em concursos e direito. Clique para assistir.</div></div>
+      <br>
+      <div class="video-list" id="videoList"></div>
+    </div>
+
+    <!-- ===== QUESTÕES ===== -->
+    <div class="panel" id="panel-questoes">
+      <div class="chapter-title">Questões</div>
+      <div class="chapter-sub">
+        <span class="chip">✏ Direito Administrativo</span>
+        <span class="chip">8 questões comentadas</span>
+      </div>
+      <div class="score-strip">
+        <div>
+          <div class="score-num" id="scoreNum">0 / 8</div>
+          <div class="score-meta">questões respondidas</div>
+        </div>
+        <div class="score-bar-wrap">
+          <div class="score-bar"><div class="score-fill" id="scoreFill" style="width:0%"></div></div>
+        </div>
+        <button class="btn-ghost" onclick="resetQ()">↺ Reiniciar</button>
+      </div>
+      <div id="qContainer"></div>
+    </div>
+
+    <!-- ===== FLASHCARDS ===== -->
+    <div class="panel" id="panel-flashcards">
+      <div class="chapter-title">Flashcards</div>
+      <div class="chapter-sub">
+        <span class="chip">🃏 20 cartões</span>
+        <span class="chip">Clique para virar</span>
+      </div>
+      <div class="alert tip"><span class="alert-ic">💡</span><div>Ideal para revisão nos 10 minutos antes da prova.</div></div>
+      <br>
+      <div class="fc-wrapper">
+        <div class="fc-card" id="fcCard" onclick="flipFC()">
+          <div class="fc-face fc-front">
+            <div class="fc-label">pergunta</div>
+            <div class="fc-q" id="fcQ"></div>
+            <div class="fc-hint">toque para ver a resposta</div>
+          </div>
+          <div class="fc-face fc-back">
+            <div class="fc-label">resposta</div>
+            <div class="fc-a" id="fcA"></div>
+          </div>
+        </div>
+      </div>
+      <div class="fc-nav">
+        <button class="fc-btn" onclick="prevFC()">← Anterior</button>
+        <span class="fc-ctr" id="fcCtr">1 / 20</span>
+        <button class="fc-btn" onclick="nextFC()">Próximo →</button>
+      </div>
+    </div>
+
+  </div>
+</main>
+</div>
+
+<!-- MODAL -->
+<div class="modal-bg" id="vModal" onclick="closeVModal(event)">
+  <div class="modal-box">
+    <div class="modal-head">
+      <span class="modal-head-title" id="vModalTitle"></span>
+      <button class="modal-close" onclick="closeVModal()">✕</button>
+    </div>
+    <iframe class="modal-iframe" id="vModalIframe" allowfullscreen></iframe>
+  </div>
+</div>
+
+<script>
+const VIDEOS=[
+  {id:'VzHOm9MmJMc',title:'Poderes Administrativos — Teoria Completa',ch:'Gran Cursos Online',dur:'28 min',tag:'Poderes'},
+  {id:'I3fJnR0yKAI',title:'Descentralização e Desconcentração',ch:'Estratégia Concursos',dur:'22 min',tag:'Organização'},
+  {id:'yB9Yg5UmMmQ',title:'Poder de Polícia — Teoria e Exercícios',ch:'Direito com Rafaela',dur:'31 min',tag:'Polícia'},
+  {id:'BT_MFsarZes',title:'Administração Indireta — Autarquias e EP',ch:'Professor Cyonil Borges',dur:'45 min',tag:'Adm. Indireta'},
+  {id:'6V1QmPLTAGE',title:'Empresa Pública x Soc. de Economia Mista',ch:'Délio Mota',dur:'19 min',tag:'EP vs SEM'},
+  {id:'CmWQ1vMi2b8',title:'Agências Reguladoras — Resumão',ch:'Gran Cursos Online',dur:'24 min',tag:'Agências'},
+  {id:'b22CtJe-xeA',title:'Princípios LIMPE — Art. 37 CF/88',ch:'Estratégia Concursos',dur:'17 min',tag:'Princípios'},
+  {id:'3geFuDNZ2BM',title:'Autarquias em Regime Especial',ch:'Mege Concursos',dur:'26 min',tag:'Autarquias'},
+  {id:'rY0TsDXRvQk',title:'Organização da Adm. Pública — Revisão Geral',ch:'Professor Cyonil Borges',dur:'38 min',tag:'Revisão'},
+];
+
+const QUESTOES=[
+  {num:1,fonte:'Estilo CESPE',tema:'Organização',txt:'Acerca da organização da Administração Pública, é correto afirmar que a descentralização implica a criação de nova pessoa jurídica e, por isso, não há relação hierárquica entre o ente central e a entidade descentralizada.',opts:['Certo','Errado'],gab:0,fb:'<strong>Certo.</strong> Na descentralização surge nova pessoa jurídica com personalidade própria. Por isso não há hierarquia — apenas tutela ou supervisão ministerial.'},
+  {num:2,fonte:'Estilo FGV',tema:'EP vs SEM',txt:'Sobre as empresas estatais, assinale a alternativa correta:',opts:['A EP pode ter qualquer forma societária; a SEM deve ser obrigatoriamente S/A.','A SEM tem capital 100% público e deve ser S/A.','Tanto EP quanto SEM possuem capital misto com maioria pública.','A EP deve ser S/A; a SEM admite qualquer forma.'],gab:0,fb:'<strong>Correto.</strong> EP = qualquer forma societária + capital 100% público. SEM = obrigatoriamente S/A + capital misto (maioria pública).'},
+  {num:3,fonte:'Estilo VUNESP',tema:'Poder de Polícia',txt:'Os atributos do poder de polícia são:',opts:['Legalidade, Impessoalidade e Moralidade.','Discricionariedade, Autoexecutoriedade e Coercibilidade.','Hierarquia, Disciplina e Regulamentação.','Publicidade, Eficiência e Vinculação.'],gab:1,fb:'<strong>Correto.</strong> Os três atributos são DAC: Discricionariedade, Autoexecutoriedade e Coercibilidade. LIMPE são os princípios do art. 37 da CF/88.'},
+  {num:4,fonte:'Estilo CESPE',tema:'Autarquias',txt:'A OAB — Ordem dos Advogados do Brasil — é classificada como uma autarquia comum, sujeita ao controle da Administração Pública.',opts:['Certo','Errado'],gab:1,fb:'<strong>Errado.</strong> O STF (ADI 3026) decidiu que a OAB possui natureza jurídica especial (sui generis). Não integra a administração indireta típica e não está sujeita ao controle da Adm. Pública.'},
+  {num:5,fonte:'Estilo FCC',tema:'Poderes',txt:'O poder administrativo que permite ao Chefe do Executivo editar decretos para regulamentar a lei, sem criar novos direitos ou obrigações, denomina-se:',opts:['Poder Disciplinar','Poder de Polícia','Poder Hierárquico','Poder Regulamentar'],gab:3,fb:'<strong>Correto.</strong> O Poder Regulamentar (art. 84, IV, CF) permite editar decretos para fiel execução da lei. Não pode inovar na ordem jurídica — apenas detalha o que a lei previu.'},
+  {num:6,fonte:'Estilo CESPE',tema:'Desconcentração',txt:'Na desconcentração administrativa não há criação de nova pessoa jurídica — ocorre apenas distribuição interna de competências, mantendo-se a relação hierárquica entre os órgãos.',opts:['Certo','Errado'],gab:0,fb:'<strong>Certo.</strong> A desconcentração é interna à mesma pessoa jurídica, com manutenção da hierarquia. Exemplo: criação de ministérios e secretarias.'},
+  {num:7,fonte:'Estilo VUNESP',tema:'Agências Reguladoras',txt:'As agências reguladoras são classificadas juridicamente como:',opts:['Empresas públicas com regime especial','Autarquias em regime especial','Fundações públicas de direito privado','Sociedades de economia mista'],gab:1,fb:'<strong>Correto.</strong> Agências reguladoras (ANEEL, ANATEL, ANVISA etc.) são autarquias em regime especial, com maior autonomia e mandato fixo para seus dirigentes.'},
+  {num:8,fonte:'Estilo CESPE',tema:'Poder Discricionário',txt:'No exercício do poder discricionário, o administrador público pode agir com liberdade absoluta, não estando submetido a qualquer controle judicial.',opts:['Certo','Errado'],gab:1,fb:'<strong>Errado.</strong> O poder discricionário não é absoluto. O Judiciário pode controlar aspectos de legalidade, razoabilidade e proporcionalidade — o administrador age dentro dos limites da lei.'},
+];
+
+const FLASHCARDS=[
+  {q:'O que é descentralização?',a:'Transferência de atividade para nova pessoa jurídica. Sem hierarquia — só tutela/supervisão.'},
+  {q:'O que é desconcentração?',a:'Distribuição interna de competências dentro da mesma pessoa jurídica, com manutenção da hierarquia.'},
+  {q:'Quais os atributos do Poder de Polícia?',a:'DAC — Discricionariedade · Autoexecutoriedade · Coercibilidade'},
+  {q:'Como são criadas as autarquias?',a:'Diretamente por lei específica. Personalidade jurídica de direito PÚBLICO.'},
+  {q:'Qual a diferença de capital entre EP e SEM?',a:'EP = capital 100% público. SEM = capital misto (maioria pública + participação privada).'},
+  {q:'Qual a forma societária obrigatória da SEM?',a:'Sociedade Anônima (S/A). Sempre.'},
+  {q:'EP vs SEM: qual Justiça julga cada uma?',a:'EP federal → Justiça Federal. SEM → Justiça Comum (estadual).'},
+  {q:'O que são Agências Reguladoras?',a:'Autarquias em regime especial com maior autonomia. Dirigentes têm mandato fixo.'},
+  {q:'Quais são os princípios LIMPE?',a:'Legalidade · Impessoalidade · Moralidade · Publicidade · Eficiência (art. 37 CF)'},
+  {q:'O que é o Poder Regulamentar?',a:'Poder do Chefe do Executivo de editar decretos para fiel execução da lei, sem inovar na ordem jurídica.'},
+  {q:'Qual a natureza jurídica da OAB?',a:'Especial (sui generis) — não é autarquia comum. Não integra a adm. indireta típica (STF ADI 3026).'},
+  {q:'O que é o Poder Disciplinar?',a:'Poder de aplicar sanções a servidores e particulares vinculados à Administração.'},
+  {q:'O que é o Poder Vinculado?',a:'A lei determina exatamente como agir — sem margem de escolha para o administrador.'},
+  {q:'Cite exemplos de Autarquias.',a:'INSS · IBAMA · ANVISA · IBGE · BACEN · INPI'},
+  {q:'Cite exemplos de Empresas Públicas.',a:'Correios · Caixa Econômica Federal (CEF) · BNDES · Embrapa'},
+  {q:'Cite exemplos de Sociedades de Economia Mista.',a:'Petrobras · Banco do Brasil · SABESP · CEMIG'},
+  {q:'O que é tutela/supervisão ministerial?',a:'Controle da Adm. Direta sobre a Indireta. Diferente de hierarquia — sem subordinação direta.'},
+  {q:'Poder de Polícia pode ser delegado a particulares?',a:'Atos de coerção NÃO podem ser delegados a particulares (posição STJ/STF).'},
+  {q:'Fundação Pública de direito público: como é criada?',a:'Diretamente por lei específica — igual à autarquia. Também chamada de autarquia fundacional.'},
+  {q:'Quais as características das Autarquias?',a:'Autonomia adm. · bens públicos · concurso público · licitação · resp. civil objetiva · privilégios processuais.'},
+];
+
+let answeredN=0,correctN=0,fcIdx=0,fcFlipped=false;
+window.onload=()=>{renderVideos();renderQ();renderFC();};
+
+function switchTab(name){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+name).classList.add('active');
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tb'+cap(name)).classList.add('active');
+  document.getElementById('crumbTab').textContent=cap(name);
+  document.getElementById('aside').classList.remove('open');
+  document.getElementById('asideOverlay').classList.remove('open');
+}
+function cap(s){return s.charAt(0).toUpperCase()+s.slice(1)}
+function setActive(el){document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));el.classList.add('active');}
+function toggleMenu(){document.getElementById('aside').classList.toggle('open');document.getElementById('asideOverlay').classList.toggle('open');}
+
+function switchR(idx){
+  document.querySelectorAll('.rsection').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.rtab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('rs'+idx).classList.add('active');
+  document.getElementById('rt'+idx).classList.add('active');
+}
+
+function renderVideos(){
+  document.getElementById('videoList').innerHTML=VIDEOS.map((v,i)=>`
+    <div class="video-row" onclick="openVideo('${v.id}','${v.title.replace(/'/g,"\\'")}')">
+      <div class="v-thumb" id="vt${i}">
+        <div class="v-thumb-fallback" id="vtf${i}">
+          <div class="v-thumb-icon">▶</div>
+          <div class="v-thumb-label">${v.tag}</div>
+        </div>
+        <img src="https://i.ytimg.com/vi/${v.id}/mqdefault.jpg" alt="" loading="lazy"
+             onload="this.style.display='block';document.getElementById('vtf${i}').style.display='none'"
+             onerror="this.style.display='none'"
+             style="display:none;width:100%;height:100%;object-fit:cover;position:absolute;inset:0">
+        <div class="v-play"><span>▶</span></div>
+      </div>
+      <div class="v-info">
+        <div class="v-channel">${v.ch}</div>
+        <div class="v-title">${v.title}</div>
+        <div class="v-meta"><span>⏱ ${v.dur}</span></div>
+        <span class="v-tag">${v.tag}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openVideo(id,title){
+  document.getElementById('vModalTitle').textContent=title;
+  document.getElementById('vModalIframe').src=`https://www.youtube.com/embed/${id}?autoplay=1`;
+  document.getElementById('vModal').classList.add('open');
+}
+function closeVModal(e){
+  if(!e||e.target===document.getElementById('vModal')){
+    document.getElementById('vModal').classList.remove('open');
+    document.getElementById('vModalIframe').src='';
+  }
+}
+
+function renderQ(){
+  document.getElementById('qContainer').innerHTML=QUESTOES.map((q,i)=>`
+    <div class="q-block" id="qb${i}">
+      <div class="q-top">
+        <div class="q-meta-row">
+          <span class="q-num-badge">Q${q.num}</span>
+          <span class="q-fonte">${q.fonte}</span>
+          <span class="q-tema">${q.tema}</span>
+        </div>
+        <div class="q-text">${q.txt}</div>
+      </div>
+      <div class="q-options">
+        ${q.opts.map((op,j)=>`
+          <div class="q-opt" id="qo${i}_${j}" onclick="ansQ(${i},${j})">
+            <div class="q-letter">${q.opts.length===2?op[0]:String.fromCharCode(65+j)}</div>
+            <span>${op}</span>
+          </div>
+        `).join('')}
+      </div>
+      <div class="q-feedback" id="qfb${i}">${q.fb}</div>
+    </div>
+  `).join('');
+}
+
+function ansQ(qi,oi){
+  const q=QUESTOES[qi];
+  const blk=document.getElementById('qb'+qi);
+  if(blk.classList.contains('done'))return;
+  blk.classList.add('done');
+  q.opts.forEach((_,j)=>{
+    const el=document.getElementById(`qo${qi}_${j}`);
+    el.classList.add('locked');
+    if(j===q.gab)el.classList.add('correct');
+    else if(j===oi)el.classList.add('wrong');
+  });
+  document.getElementById('qfb'+qi).classList.add('show');
+  answeredN++;
+  if(oi===q.gab)correctN++;
+  document.getElementById('scoreNum').textContent=`${correctN} / ${answeredN}`;
+  document.getElementById('scoreFill').style.width=Math.round((answeredN/QUESTOES.length)*100)+'%';
+}
+function resetQ(){answeredN=0;correctN=0;document.getElementById('scoreNum').textContent='0 / 8';document.getElementById('scoreFill').style.width='0%';renderQ();}
+
+function renderFC(){
+  const fc=FLASHCARDS[fcIdx];
+  document.getElementById('fcQ').textContent=fc.q;
+  document.getElementById('fcA').textContent=fc.a;
+  document.getElementById('fcCtr').textContent=`${fcIdx+1} / ${FLASHCARDS.length}`;
+  document.getElementById('fcCard').classList.remove('flipped');
+  fcFlipped=false;
+}
+function flipFC(){document.getElementById('fcCard').classList.toggle('flipped');fcFlipped=!fcFlipped}
+function nextFC(){fcIdx=(fcIdx+1)%FLASHCARDS.length;renderFC()}
+function prevFC(){fcIdx=(fcIdx-1+FLASHCARDS.length)%FLASHCARDS.length;renderFC()}
+
+let tx=0;
+document.getElementById('fcCard').addEventListener('touchstart',e=>{tx=e.touches[0].clientX});
+document.getElementById('fcCard').addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-tx;
+  if(Math.abs(dx)>50){dx>0?prevFC():nextFC()}else flipFC();
+});
+</script>
+</body>
+</html>

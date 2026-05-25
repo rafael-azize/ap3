@@ -323,120 +323,127 @@ hr{border:none;border-top:1px solid var(--rule);margin:2rem 0}
     max-width:100%;
   }
 
-  /* Chapter heading: bigger, app-like */
-  .chapter-title{font-size:1.65rem;margin-bottom:0.3rem;}
-  .chapter-sub{font-size:13px;margin-bottom:1.25rem;gap:0.5rem;}
-  .chip{font-size:11.5px;padding:0.2rem 0.8rem;}
+  /* BASE FONT — tudo escala junto */
+  html{font-size:18px;}
+  body{font-size:1rem;}
 
-  /* Resume sub-tabs: horizontal scroll like app pill selector */
+  /* Sub-tabs: scroll horizontal */
   .rtab-strip{
     display:flex;flex-wrap:nowrap;
     overflow-x:auto;
     -webkit-overflow-scrolling:touch;
     scrollbar-width:none;
     gap:0.4rem;
-    padding:0 0 0.75rem;
     margin:0 -1rem 1.5rem;
-    padding-left:1rem;
-    padding-right:1rem;
+    padding:0 1rem 0.75rem;
     border-bottom:1px solid var(--rule);
   }
   .rtab-strip::-webkit-scrollbar{display:none}
+
+  /* Chapter heading */
+  .chapter-title{font-size:1.65rem;margin-bottom:0.3rem;}
+  .chapter-sub{font-size:0.85rem;margin-bottom:1.25rem;gap:0.5rem;}
+  .chip{font-size:0.75rem;padding:0.2rem 0.8rem;}
+
+  /* Sub-tabs */
   .rtab{
     flex-shrink:0;
-    font-size:14px;
+    font-size:0.88rem;
     padding:0.55rem 1.1rem;
     border-radius:99px;
     white-space:nowrap;
     border:1px solid var(--rule);
-    min-height:40px;
+    min-height:42px;
   }
   .rtab.active{border-color:var(--amber)}
 
   /* Section label */
-  .sec-label{font-size:11px;margin-top:2rem;}
+  .sec-label{font-size:0.72rem;margin-top:2rem;}
 
-  /* Cards: full width, bigger text */
+  /* Cards */
   .card-grid{grid-template-columns:1fr;gap:0.75rem;}
-  .card{padding:1rem 1rem;}
+  .card{padding:1rem;}
   .card-title{font-size:1.05rem;}
-  .card p,.card li{font-size:15px;}
+  .card p,.card li{font-size:0.92rem;}
 
-  /* Alerts: bigger font */
-  .alert{font-size:15px;padding:1rem 1rem;}
-  .alert-ic{font-size:17px;}
+  /* Alerts */
+  .alert{font-size:0.92rem;padding:1rem;}
+  .alert-ic{font-size:1.1rem;}
 
   /* Prose */
-  .prose{font-size:15px;}
+  .prose{font-size:0.92rem;}
 
   /* Def block */
   .def-term{font-size:1rem;}
-  .def-body{font-size:15px;}
+  .def-body{font-size:0.92rem;}
 
   /* Numbered list */
-  .num-list li{font-size:15px;padding:0.75rem 0;}
-  .num-list li::before{font-size:12px;}
+  .num-list li{font-size:0.92rem;padding:0.75rem 0;}
+  .num-list li::before{font-size:0.75rem;}
 
   /* HL row */
-  .hl-row{font-size:15px;flex-direction:column;gap:0.25rem;}
-  .hl-row strong{min-width:unset;font-size:15px;}
+  .hl-row{font-size:0.92rem;flex-direction:column;gap:0.25rem;}
+  .hl-row strong{min-width:unset;font-size:0.92rem;}
 
-  /* Mnemonic banner */
+  /* Mnemonic */
   .mnem-banner .mnem-word{font-size:2.4rem;}
-  .mnem-l{font-size:15px;}
+  .mnem-l{font-size:0.92rem;}
 
-  /* Tables: force scroll, bigger text */
+  /* Tables */
   .table-wrap{border-radius:10px;}
-  table{font-size:14px;}
-  thead th{font-size:13px;padding:0.75rem 0.85rem;}
-  td{padding:0.7rem 0.85rem;font-size:14px;}
+  table{font-size:0.85rem;}
+  thead th{font-size:0.8rem;padding:0.75rem 0.85rem;}
+  td{padding:0.7rem 0.85rem;font-size:0.85rem;}
 
   /* Collapse */
-  .collapse-head{font-size:15px;padding:1rem 1rem;min-height:52px;}
-  .collapse-body{font-size:15px;}
+  .collapse-head{font-size:0.95rem;padding:1rem;min-height:52px;}
+  .collapse-body{font-size:0.92rem;}
 
   /* Questions */
   .score-strip{padding:1rem;gap:1rem;}
   .score-num{font-size:2.2rem;}
-  .score-meta{font-size:14px;}
-  .btn-ghost{font-size:14px;padding:0.6rem 1.2rem;min-height:44px;}
+  .score-meta{font-size:0.85rem;}
+  .btn-ghost{font-size:0.88rem;padding:0.6rem 1.2rem;min-height:44px;}
   .q-top{padding:1rem 1rem 0;}
-  .q-text{font-size:16px;line-height:1.65;}
+  .q-text{font-size:1rem;line-height:1.65;}
   .q-meta-row{flex-wrap:wrap;gap:0.4rem;}
-  .q-num-badge{font-size:12px;}
-  .q-fonte,.q-tema{font-size:12px;}
-  .q-opt{padding:1rem 1rem;font-size:15px;min-height:52px;align-items:center;}
-  .q-letter{width:28px;height:28px;font-size:13px;border-radius:6px;}
-  .q-feedback{font-size:14px;padding:1rem;}
+  .q-num-badge{font-size:0.75rem;}
+  .q-fonte,.q-tema{font-size:0.75rem;}
+  .q-opt{padding:1rem;font-size:0.95rem;min-height:52px;align-items:center;}
+  .q-letter{width:28px;height:28px;font-size:0.8rem;border-radius:6px;}
+  .q-feedback{font-size:0.88rem;padding:1rem;}
 
   /* Flashcards */
   .fc-wrapper{max-width:100%;margin-bottom:1.25rem;}
   .fc-card{aspect-ratio:4/3;}
   .fc-face{padding:1.5rem 1rem;border-radius:14px;}
+  .fc-label{font-size:0.7rem;}
   .fc-q{font-size:1.1rem;}
   .fc-a{font-size:1rem;}
-  .fc-hint{font-size:13px;margin-top:0.75rem;}
-  .fc-label{font-size:11px;}
+  .fc-hint{font-size:0.8rem;margin-top:0.75rem;}
   .fc-nav{gap:0.75rem;margin-bottom:1.5rem;}
-  .fc-btn{font-size:15px;padding:0.65rem 1.4rem;min-height:48px;border-radius:10px;}
-  .fc-ctr{font-size:14px;}
+  .fc-btn{font-size:0.92rem;padding:0.65rem 1.4rem;min-height:48px;border-radius:10px;}
+  .fc-ctr{font-size:0.88rem;}
 
   /* Videos */
   .video-row{flex-direction:column;gap:0.75rem;padding:1rem;}
   .v-thumb{width:100%;aspect-ratio:16/9;}
-  .v-play{opacity:1;}/* always visible on mobile */
-  .v-channel{font-size:12px;}
-  .v-title{font-size:16px;}
-  .v-meta{font-size:13px;}
-  .v-tag{font-size:12px;}
+  .v-play{opacity:1;}
+  .v-channel{font-size:0.75rem;}
+  .v-title{font-size:1rem;}
+  .v-meta{font-size:0.8rem;}
+  .v-tag{font-size:0.75rem;}
 
-  /* Modal: full-screen on mobile */
+  /* Modal */
   .modal-bg{padding:0;}
   .modal-box{border-radius:0;height:100%;display:flex;flex-direction:column;}
   .modal-head{padding:1rem 1.25rem;}
-  .modal-head-title{font-size:15px;}
-  .modal-close{font-size:24px;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;}
+  .modal-head-title{font-size:0.95rem;}
+  .modal-close{font-size:1.5rem;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;}
   .modal-iframe{flex:1;height:0;}
+
+  /* Bottom nav labels */
+  .bn-label{font-size:0.7rem;}
 
   /* ===== BOTTOM NAVIGATION BAR ===== */
   .bottom-nav{
